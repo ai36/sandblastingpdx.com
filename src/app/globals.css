@@ -1,0 +1,170 @@
+@import "tailwindcss";
+
+@theme {
+  /* ── Color palette: Industrial dark + fire orange ── */
+  --color-steel-950: #0b0f16;
+  --color-steel-900: #111827;
+  --color-steel-800: #1f2937;
+  --color-steel-700: #374151;
+  --color-steel-600: #4b5563;
+  --color-steel-500: #6b7280;
+  --color-steel-400: #9ca3af;
+  --color-steel-300: #d1d5db;
+  --color-steel-200: #e5e7eb;
+  --color-steel-100: #f3f4f6;
+  --color-steel-50:  #f9fafb;
+
+  --color-fire-700:  #c2410c;
+  --color-fire-600:  #ea580c;
+  --color-fire-500:  #f97316;
+  --color-fire-400:  #fb923c;
+  --color-fire-300:  #fdba74;
+  --color-fire-100:  #ffedd5;
+
+  /* ── Typography ── */
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+
+  /* ── Radius ── */
+  --radius-sm:  2px;
+  --radius-md:  4px;
+  --radius-lg:  6px;
+  --radius-xl:  8px;
+  --radius-2xl: 12px;
+
+  /* ── Shadows ── */
+  --shadow-card:     0 1px 2px rgba(0,0,0,.5), 0 4px 16px rgba(0,0,0,.35);
+  --shadow-card-lg:  0 2px 6px rgba(0,0,0,.55), 0 12px 40px rgba(0,0,0,.45);
+  --shadow-fire:     0 0 0 1px rgba(249,115,22,.25), 0 4px 24px rgba(249,115,22,.14);
+  --shadow-step:     0 4px 20px rgba(249,115,22,.4);
+  --shadow-btn-fire: 0 0 0 1px rgba(249,115,22,.5), 0 4px 14px rgba(249,115,22,.25);
+}
+
+/* ── Base ─────────────────────────────────────────────────────────────────── */
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-steel-950);
+    color: var(--color-steel-100);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-fire-500);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+  }
+
+  ::selection {
+    background-color: var(--color-fire-500);
+    color: #fff;
+  }
+}
+
+/* ── Scrollbar (Webkit) ───────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--color-steel-900); }
+::-webkit-scrollbar-thumb { background: var(--color-steel-700); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-fire-600); }
+
+/* ── Container ────────────────────────────────────────────────────────────── */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+@media (min-width: 640px)  { .container { padding-inline: 2rem; } }
+@media (min-width: 1024px) { .container { padding-inline: 3rem; } }
+
+/* ── Card ────────────────────────────────────────────────────────────────── */
+/* Reusable card primitive — visible border + depth shadow                   */
+.card {
+  border-radius: var(--radius-2xl);
+  background-color: var(--color-steel-900);
+  border: 1px solid var(--color-steel-700);
+  box-shadow: var(--shadow-card);
+  transition: border-color 200ms ease, box-shadow 200ms ease;
+}
+.card:hover {
+  border-color: var(--color-steel-600);
+  box-shadow: var(--shadow-card-lg);
+}
+/* Orange glow variant on hover */
+.card-fire:hover {
+  border-color: rgba(249,115,22,.5);
+  box-shadow: var(--shadow-fire);
+}
+/* Card on alt (lighter) section bg — use darker bg to contrast */
+.card-on-alt {
+  background-color: var(--color-steel-950);
+}
+
+/* ── Section divider ─────────────────────────────────────────────────────── */
+.section-divide {
+  border-top: 1px solid var(--color-steel-800);
+}
+
+/* ── Decorative background utilities ─────────────────────────────────────── */
+
+/* Hero: radial fire-orange glow + dark vignette */
+@utility bg-hero-radial {
+  background-image:
+    radial-gradient(ellipse 80% 60% at 60% 50%, var(--color-fire-500) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 80% at 80% 80%, #1e293b 0%, transparent 50%);
+}
+
+/* Hero: subtle engineering grid overlay */
+@utility bg-hero-grid {
+  background-image:
+    linear-gradient(var(--color-steel-400) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-steel-400) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* FinalCTA: bold diagonal gradient */
+@utility bg-cta-gradient {
+  background: linear-gradient(135deg, var(--color-fire-700) 0%, var(--color-fire-600) 40%, #9a3412 100%);
+}
+
+/* FinalCTA: noise texture overlay */
+@utility bg-noise-dots {
+  background-image: radial-gradient(circle at 1px 1px, white 1px, transparent 0);
+  background-size: 20px 20px;
+}
+
+/* ── Prose (report body) ─────────────────────────────────────────────────── */
+.prose {
+  color: var(--color-steel-300);
+  max-width: 72ch;
+  line-height: 1.75;
+}
+.prose h2,
+.prose h3 {
+  color: var(--color-steel-50);
+  margin-block: 1.5em 0.5em;
+  font-weight: 700;
+}
+.prose p { margin-block: 0.75em; }
+.prose ul,
+.prose ol { padding-left: 1.5em; margin-block: 0.75em; }
+.prose li { margin-block: 0.25em; }
+.prose strong { color: var(--color-steel-100); }
+.prose a { color: var(--color-fire-400); text-decoration: underline; }
+.prose a:hover { color: var(--color-fire-300); }
