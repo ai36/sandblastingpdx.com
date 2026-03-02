@@ -78,6 +78,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={fontSans.variable}>
       <head>
+        <meta name="google-site-verification" content="9m21iS8l66LT5GGhFN_-H8hHEkP-f4ekCkIpCaqUs9I" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
