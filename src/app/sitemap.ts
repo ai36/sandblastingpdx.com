@@ -7,7 +7,7 @@ const BASE = SITE_META.url
 export default function sitemap(): MetadataRoute.Sitemap {
   const reports = getAllReports()
 
-  const latestDate = reports[0]?.date ? new Date(reports[0].date) : new Date()
+  const latestDate = new Date()
 
   const reportEntries: MetadataRoute.Sitemap = reports.map((report) => ({
     url: `${BASE}/reports/${report.slug}`,
@@ -25,7 +25,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${BASE}/contact`,
-      lastModified: new Date('2025-01-01'),
+      lastModified: latestDate,
       changeFrequency: 'weekly',
       priority: 0.8,
     },
