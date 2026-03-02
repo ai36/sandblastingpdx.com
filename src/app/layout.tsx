@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Plus_Jakarta_Sans } from 'next/font/google'
 import { GoogleAnalytics } from '@next/third-parties/google'
 import './globals.css'
@@ -15,6 +15,12 @@ const fontSans = Plus_Jakarta_Sans({
   display: 'swap',
   weight: ['400', '500', '600', '700', '800'],
 })
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  userScalable: false,
+}
 
 export const metadata: Metadata = {
   title: {
@@ -41,6 +47,9 @@ export const metadata: Metadata = {
     title: SITE_META.title,
     description: SITE_META.description,
     images: [SITE_META.ogImage],
+  },
+  icons: {
+    icon: [{ url: '/favicon.svg', type: 'image/svg+xml' }],
   },
   robots: {
     index: true,

@@ -3,6 +3,7 @@
 import { useState, useTransition } from 'react'
 import { IconCircleCheck, IconMail } from '@tabler/icons-react'
 import { COMPANY, SERVICE_AREAS, SERVICES, SECTION_COPY } from '@/constants'
+import { sendContactForm } from '@/app/actions/contact'
 
 // Note: metadata export requires a separate Server Component wrapper.
 // For simplicity here the page is a Client Component; move metadata to a
@@ -18,12 +19,20 @@ function ContactForm() {
     const data = Object.fromEntries(new FormData(form))
 
     startTransition(async () => {
-      // TODO: replace with your form handler / API route / Formspree endpoint
-      console.info('Form submission:', data)
-      // Simulate success
-      await new Promise((r) => setTimeout(r, 800))
-      setStatus('success')
-      form.reset()
+      const result = await sendContactForm({
+        name: String(data.name ?? ''),
+        phone: String(data.phone ?? ''),
+        email: String(data.email ?? ''),
+        service: String(data.service ?? ''),
+        location: String(data.location ?? ''),
+        message: String(data.message ?? ''),
+      })
+      if (result.ok) {
+        setStatus('success')
+        form.reset()
+      } else {
+        setStatus('error')
+      }
     })
   }
 
@@ -152,6 +161,11 @@ function ContactForm() {
       </div>
 
       {/* Submit */}
+      {status === 'error' && (
+        <p className="text-sm text-red-400 text-center">
+          Something went wrong — please try again or email us directly.
+        </p>
+      )}
       <button
         type="submit"
         disabled={isPending}

@@ -57,6 +57,7 @@
   }
 
   body {
+    overflow-x: clip;
     background-color: var(--color-steel-950);
     color: var(--color-steel-100);
     font-family: var(--font-sans);
