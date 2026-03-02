@@ -6,6 +6,7 @@ import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { CookieConsent } from '@/components/ui/CookieConsent'
 import { SITE_META, COMPANY } from '@/constants'
+import { Developer } from '@/components/developer/Developer'
 
 const gaId = process.env.NEXT_PUBLIC_GA_ID
 
@@ -97,6 +98,7 @@ export default function RootLayout({
         <Header />
         <main>{children}</main>
         <Footer />
+        <Developer />
         <CookieConsent />
         {gaId && <GoogleAnalytics gaId={gaId} />}
       </body>
