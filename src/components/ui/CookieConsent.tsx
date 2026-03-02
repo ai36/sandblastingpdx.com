@@ -5,7 +5,6 @@ import { useState, useEffect } from 'react'
 // ── Types ─────────────────────────────────────────────────────────────────────
 declare global {
   interface Window {
-    dataLayer: unknown[]
     gtag: (...args: unknown[]) => void
   }
 }
@@ -31,56 +30,44 @@ function setCookie(name: string, value: string, days: number) {
   document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires}; path=/; SameSite=Lax`
 }
 
-function loadGA(id: string) {
-  if (document.querySelector(`script[src*="${id}"]`)) return
-
-  window.dataLayer = window.dataLayer || []
-  window.gtag = function (...args: unknown[]) {
-    window.dataLayer.push(args)
+function denyGA() {
+  if (typeof window.gtag === 'function') {
+    window.gtag('consent', 'update', { analytics_storage: 'denied' })
   }
-  window.gtag('js', new Date())
-  window.gtag('config', id)
-
-  const script = document.createElement('script')
-  script.async = true
-  script.src = `https://www.googletagmanager.com/gtag/js?id=${id}`
-  document.head.appendChild(script)
 }
 
 // ── Component ─────────────────────────────────────────────────────────────────
 export function CookieConsent() {
-  const [visible, setVisible] = useState(false)
+  const [bannerVisible, setBannerVisible] = useState(false)
 
   useEffect(() => {
     if (!GA_ID) return
 
     const consent = getCookie(COOKIE_NAME)
 
-    if (consent !== 'declined') {
-      loadGA(GA_ID)
+    if (consent === 'declined') {
+      denyGA()
+      return
     }
 
     if (!consent) {
-      // Slight delay so the banner doesn't flash on hydration
-      const t = setTimeout(() => setVisible(true), 600)
+      const t = setTimeout(() => setBannerVisible(true), 600)
       return () => clearTimeout(t)
     }
   }, [])
 
   function accept() {
     setCookie(COOKIE_NAME, 'accepted', COOKIE_DAYS)
-    setVisible(false)
+    setBannerVisible(false)
   }
 
   function decline() {
     setCookie(COOKIE_NAME, 'declined', COOKIE_DAYS)
-    if (typeof window.gtag === 'function') {
-      window.gtag('consent', 'update', { analytics_storage: 'denied' })
-    }
-    setVisible(false)
+    denyGA()
+    setBannerVisible(false)
   }
 
-  if (!visible || !GA_ID) return null
+  if (!bannerVisible || !GA_ID) return null
 
   return (
     <div

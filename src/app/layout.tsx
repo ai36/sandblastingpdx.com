@@ -1,10 +1,13 @@
 import type { Metadata } from 'next'
 import { Plus_Jakarta_Sans } from 'next/font/google'
+import { GoogleAnalytics } from '@next/third-parties/google'
 import './globals.css'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { CookieConsent } from '@/components/ui/CookieConsent'
 import { SITE_META, COMPANY } from '@/constants'
+
+const gaId = process.env.NEXT_PUBLIC_GA_ID
 
 const fontSans = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -85,6 +88,7 @@ export default function RootLayout({
         <main>{children}</main>
         <Footer />
         <CookieConsent />
+        {gaId && <GoogleAnalytics gaId={gaId} />}
       </body>
     </html>
   )
