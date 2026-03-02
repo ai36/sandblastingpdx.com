@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { IconMail } from '@tabler/icons-react'
 import { COMPANY, NAV_LINKS, SERVICES, SERVICE_AREAS } from '@/constants'
+import { Logo } from '@/components/ui/Logo'
 
 export function Footer() {
   const year = new Date().getFullYear()
@@ -9,22 +10,18 @@ export function Footer() {
     <footer className="bg-steel-950 border-t border-steel-700">
       {/* Main grid */}
       <div className="container py-16 lg:py-20">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+        <div className="grid grid-cols-1 text-center min-[512px]:text-left min-[512px]:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Brand column */}
-          <div className="sm:col-span-2 lg:col-span-1">
-            <Link href="/" className="inline-flex items-center gap-2 mb-4">
-              <span className="size-8 rounded-lg bg-fire-500 flex items-center justify-center text-white font-black text-sm">
-                S
-              </span>
-              <span className="text-steel-50 font-black text-lg tracking-tight">
-                {COMPANY.name}
-              </span>
-            </Link>
+          <div className="col-auto min-[512px]:col-span-2 lg:col-span-1">
+            <Logo
+              className="h-8 w-auto max-w-[200px]"
+              linkClassName="inline-block mb-4"
+            />
             <p className="text-sm text-steel-400 leading-relaxed mb-4">
               {COMPANY.tagline}. Serving Portland, Vancouver WA, and the Pacific
               Northwest since {COMPANY.founded}.
             </p>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center justify-center min-[512px]:justify-start gap-3">
               <a
                 href={COMPANY.social.facebook}
                 aria-label="Facebook"
@@ -80,7 +77,7 @@ export function Footer() {
           </div>
 
           {/* Service Areas column */}
-          <div>
+          <div className="row-span-2 lg:row-auto">
             <h3 className="text-sm font-bold text-steel-100 uppercase tracking-widest mb-4">
               Service Areas
             </h3>
@@ -98,7 +95,7 @@ export function Footer() {
             <h3 className="text-sm font-bold text-steel-100 uppercase tracking-widest mb-4">
               Contact
             </h3>
-            <div className="space-y-3">
+            <div className="space-y-3 justify-center min-[512px]:justify-start flex items-center">
               <a
                 href={`mailto:${COMPANY.email}`}
                 className="flex items-center gap-2 text-sm text-steel-400 hover:text-fire-400 transition-colors"

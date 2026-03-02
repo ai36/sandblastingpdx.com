@@ -5,6 +5,7 @@ import { useEffect } from 'react'
 import { cn } from '@/lib/utils'
 import { useUIStore } from '@/store'
 import { NAV_LINKS, COMPANY } from '@/constants'
+import { Logo } from '@/components/ui/Logo'
 
 export function Header() {
   const { isMenuOpen, setMenuOpen, toggleMenu } = useUIStore()
@@ -38,18 +39,11 @@ export function Header() {
           <div className="flex items-center justify-between h-16">
 
             {/* Logo */}
-            <Link
-              href="/"
+            <Logo
+              className="h-7 w-auto"
+              linkClassName="shrink-0"
               onClick={() => setMenuOpen(false)}
-              className="flex items-center gap-2.5 shrink-0"
-            >
-              <span className="size-8 rounded-lg bg-fire-500 flex items-center justify-center text-white font-black text-sm shrink-0">
-                S
-              </span>
-              <span className="text-steel-50 font-black text-lg tracking-tight leading-none whitespace-nowrap">
-                {COMPANY.name}
-              </span>
-            </Link>
+            />
 
             {/* Desktop nav — lg+ only */}
             <nav className="hidden lg:flex items-center gap-0.5" aria-label="Main navigation">
