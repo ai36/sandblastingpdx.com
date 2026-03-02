@@ -1,6 +1,6 @@
 # Sand Blasting PDX
 
-Business website for **SandblastingPDX** — Portland, OR & Vancouver, WA - [https://pnwstumpprops.vercel.app](https://sandblastingpdx.vercel.app/?utm_source=github&utm_medium=readme)
+Business website for **SandblastingPDX** — Portland, OR & Vancouver, WA - [https://sandblastingpdx.vercel.app](https://sandblastingpdx.vercel.app/?utm_source=github&utm_medium=readme)
 
 ## Stack
 
